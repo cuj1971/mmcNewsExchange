@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "newsarchive-17092": {
+      "hosting": {
+        "mmcNewsExchange": [
+          "newsarchive-17092"
+        ]
+      }
+    }
+  }
+}
