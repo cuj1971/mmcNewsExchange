@@ -30,14 +30,13 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
-<ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
-  <ion-infinite-scroll-content
-    loadingSpinner="bubbles"
-    loadingText="Loading more data...">
-  </ion-infinite-scroll-content>
-</ion-infinite-scroll>
-
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+        <ion-button (click)="loadMore($event)">get more</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
 
