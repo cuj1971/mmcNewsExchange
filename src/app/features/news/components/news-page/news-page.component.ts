@@ -31,6 +31,13 @@ export class NewsPageComponent implements OnInit {
     this._router.navigate([`../search/news/chart`]);
   }
   
+  async loadMore($event) {
+    // update observable after making new api call
+    await this._newsService.addMoreNews$()
+    // trigger complete() event to stop infini scroll animation and display new items
+    $event.target.complete();
+  }
+
   ngOnInit(): void {
     this.readNews();
   }

@@ -4,7 +4,6 @@
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize">News Exchange Archive</ion-title>
-    <ion-icon name="newspaper-outline"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -29,16 +28,16 @@
           <p><i>no posts to display</i></p>
         </ion-text>
       </ion-col>
-
-      <ion-col class="ion-hide-lg-down" size="12" size-lg="4">
-        <ion-text>
-          <p>
-            <b>Bienvenu sur mon super Blog</b>
-          </p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores blanditiis excepturi eius recusandae accusantium deserunt iste labore. Corrupti ipsum ad similique. Harum quia nesciunt itaque officiis debitis reprehenderit facere fugiat?</p>
-        </ion-text>
-      </ion-col>
     </ion-row>
   </ion-grid>
+
+
+<ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
+
 </ion-content>
 
