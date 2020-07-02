@@ -1,28 +1,31 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title color="light">Search</ion-title>
+    <ion-toolbar color="primary">
+        <ion-title class="ion-text-capitalize">News Exchange Archive</ion-title>
+        <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+        </ion-buttons>
     </ion-toolbar>
-    </ion-header>
-    <ion-content>
+  </ion-header>
+
+  <ion-content>
     <ion-grid>
         <ion-row>
-        <ion-col class="ion-text-center ion-align-self-center">
-            <ion-item>
-                <ion-label></ion-label>
-                <ion-input [(ngModel)]="searchString" value="1990-02-19" type="search" placeholder="type your search terms here ......."></ion-input>
-            </ion-item>
-    
-            <ion-item>
-                <ion-datetime [(ngModel)]="startDatePicker" placeholder="Start Date"></ion-datetime>
-            </ion-item>
+            <ion-col class="ion-text-center ion-align-self-center">
+                <ion-item>
+                    <ion-label></ion-label>
+                    <ion-input [(ngModel)]="searchString" value="1990-02-19" type="search" placeholder="type your search terms here ......."></ion-input>
+                </ion-item>
+        
+                <ion-item>
+                    <ion-datetime [(ngModel)]="startDatePicker" placeholder="Start Date"></ion-datetime>
+                </ion-item>
 
-            <ion-item>
-                <ion-datetime [(ngModel)]="endDatePicker" placeholder="End Date"></ion-datetime>
-            </ion-item>
+                <ion-item>
+                    <ion-datetime [(ngModel)]="endDatePicker" placeholder="End Date"></ion-datetime>
+                </ion-item>
 
-            <ion-button fill="outline" size="large" class="ion-padding" (click)="searchNews()">search</ion-button>
-        </ion-col>
-        </ion-row>
-     
+                <ion-button fill="outline" size="large" class="ion-padding" (click)="searchNews()">search</ion-button>
+            </ion-col>
+        </ion-row>     
     </ion-grid>
-    </ion-content>
+  </ion-content>
