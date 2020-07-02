@@ -24,6 +24,7 @@
     "@angular/router": "~9.1.7",
     "@ionic/angular": "^5.2.2",
     "chart.js": "^2.9.3",
+    "chartjs-plugin-datalabels": "^0.7.0",
     "firebase": "^7.15.5",
     "moment": "^2.27.0",
     "rxjs": "~6.5.4",
