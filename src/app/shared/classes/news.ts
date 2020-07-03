@@ -39,7 +39,7 @@ export class News {
                 main: res.headline.main
               }
             }))
-            .slice(0, 10) // number of expected results 
+           // .slice(0, 10) // number of expected results 
         }
         
 }

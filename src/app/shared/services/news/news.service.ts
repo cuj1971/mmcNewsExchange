@@ -7,6 +7,7 @@ import { INewYorkTimesFullJSON } from '../../interfaces/newyorktimes';
 import { News } from '../../classes/news'
 import * as moment from 'moment';
 import { ExchangeService } from '../exchange/exchange.service';
+import { nextTick } from 'process';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,9 @@ import { ExchangeService } from '../exchange/exchange.service';
 export class NewsService {
 
   // The BehaviorSubject will store the New York Times Search instance into memory and allows us to emit new values
-  private _news: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private _news: BehaviorSubject<News> = new BehaviorSubject<News>(null);
   // The Observable is just a limited version of BehaviorSubject to expose to public
-  public news$: Observable<any> = this._news.asObservable();
+  public news$: Observable<News> = this._news.asObservable();
 
   private searchTerm: string;
   private startDate: string;
@@ -33,7 +34,8 @@ export class NewsService {
 
   public fetchAndGetNews$() {
     console.log('fetchAndGetNews:');
-    this.page = 0;    
+    this.page = 0; 
+    //this.page = this.page + 1;     
     let startWrapper = moment(this.startDate);
     let endWrapper = moment(this.endDate);
 
@@ -48,7 +50,7 @@ export class NewsService {
   }
 
 
-  async addMoreNews$() {
+  public addMoreNews$() {
     console.log('addMoreNews:');
     this.page = this.page + 1;    
     let startWrapper = moment(this.startDate);
@@ -57,14 +59,24 @@ export class NewsService {
     let apiEndpoint = 
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&sort=newest&fq=pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&page=${this.page}&api-key=${this.apiKey}`;
 
+    console.log('this._news.value', this._news.value)
     return this._http.get<INewYorkTimesFullJSON>(apiEndpoint).pipe(
-      map(res => new News(res)),
-      tap(news => this._news.next([
-        news,
-        ...this._news.value()])),
+      //tap(res => console.log('res docs[]:', res.response.docs)),
+      //tap(res => console.log('_news docs[]:', this._news.value.rawResponse.response.docs)),
+      map(res => new News(
+        {
+          response: {
+            meta: res.response.meta,
+            docs: [...this._news.value.rawResponse.response.docs, ...res.response.docs]
+          },
+          copyright: res.copyright,
+          status: res.status
+        }
+        )),
+      tap(news => this._news.next(news)),
+      tap(res => console.log('after ... => _news docs[]:', this._news.value.rawResponse.response.docs)),
       switchMap(() => this.getNews$())
     )
-
   }
 
   public setNewsQuery(val1, val2, val3) {
