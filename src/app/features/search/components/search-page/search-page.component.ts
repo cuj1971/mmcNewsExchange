@@ -4,6 +4,7 @@ import { Observable} from 'rxjs';
 import { News } from '../../../../shared/classes/news';
 import { NewsService } from '../../../../shared/services/news/news.service';
 import { INewYorkTimesResponseMeta, INewYorkTimesResponseDoc } from '../../../../shared/interfaces/newyorktimes';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class SearchPageComponent implements OnInit {
   newsSearchHits = { hits: 0, offset: 0, time: 0 };                                                                       // here
   articles: INewYorkTimesResponseDoc[] = []; 
 
-  constructor(private _newsService: NewsService, private _router:Router) {
+  constructor(private _newsService: NewsService, private _router:Router, private _afs: AngularFireAuth) {
 
    }
 
@@ -45,6 +46,11 @@ export class SearchPageComponent implements OnInit {
       endDatePicker: ['31/12/2020', Validators.required]
     })
     */
+  }
+
+  Logout(){
+    this._afs.signOut();
+    this._router.navigate([`/home`]);
   }
 
 }

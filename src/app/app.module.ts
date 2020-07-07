@@ -1,24 +1,14 @@
+import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-// Angular Material
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatGridListModule} from'@angular/material/grid-list';
-import { MatListModule } from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatNativeDateModule} from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-
 // Angular Fire
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule} from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 
 // Charts
 import { Chart } from 'chart.js'
@@ -30,13 +20,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchPageComponent } from './features/search/components/search-page/search-page.component';
 import { NewsPageComponent } from './features/news/components/news-page/news-page.component';
 import { ChartPageComponent } from './features/chart/components/chart-page/chart-page.component';
+import { RegisterComponent } from './features/register/register.component';
+import { LoginComponent } from './features/login/login.component';
+import { HomeComponent } from './features/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchPageComponent,
     NewsPageComponent,
-    ChartPageComponent
+    ChartPageComponent,
+    RegisterComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -47,18 +43,9 @@ import { ChartPageComponent } from './features/chart/components/chart-page/chart
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatGridListModule,
-    MatListModule,
-    MatMenuModule,
-    MatNativeDateModule,
-    MatSidenavModule,
-    MatToolbarModule
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

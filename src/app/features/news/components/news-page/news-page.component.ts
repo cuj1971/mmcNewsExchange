@@ -31,7 +31,7 @@ export class NewsPageComponent implements OnInit {
     this._router.navigate([`../search/news/chart`]);
   }
   
-  async updateNews() {
+  async updateNews(e) {
     // update observable after making new api call
     //await this._newsService.addMoreNews$()
    
@@ -43,6 +43,8 @@ export class NewsPageComponent implements OnInit {
       }, err => {
       console.error(err);        
     });
+
+    e.target.complete();
   }
 
   ngOnInit(): void {

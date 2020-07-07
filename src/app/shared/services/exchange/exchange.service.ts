@@ -24,14 +24,13 @@ export class ExchangeService {
   }
 
   public getRates$(): Observable<Exchange> {
-    console.log('getRates$:');
     return this.rates$
   }
 
   public fetchAndGetRates() {
-    console.log('fetchAndGetRates() this.startDate:', this.startDate);
     let a = moment(this.startDate);
     let startDate = a.clone().subtract(2, 'week');
+    // SET RANGE FROM ONE WEEK BEFORE, UNTIL ONE WEEK AFTER THE SELECTED ARTICLE DATE
     let startString = `${startDate.year()}-${startDate.month()+1}-${startDate.date()}`;
     let endDate = a.clone().add(2, 'week');
     let endString = `${endDate.year()}-${endDate.month()+1}-${endDate.date()}`;
@@ -40,7 +39,6 @@ export class ExchangeService {
     
     return this._http.get<IExchangeJSON>(apiEndpoint).pipe(
       map(res => new Exchange(res)),
-      tap(res => console.log('res', res)),
       tap(res => this._rates.next(res)),
       switchMap(() => this.getRates$())
     )

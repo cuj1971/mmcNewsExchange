@@ -28,12 +28,10 @@ export class NewsService {
   constructor(private _http:HttpClient, private _exchangeService: ExchangeService) { }
 
   public getNews$(): Observable<News> {
-    console.log('getNews:');
     return this.news$
   }
 
   public fetchAndGetNews$() {
-    console.log('fetchAndGetNews:');
     this.page = 0; 
     //this.page = this.page + 1;     
     let startWrapper = moment(this.startDate);
@@ -51,7 +49,6 @@ export class NewsService {
 
 
   public addMoreNews$() {
-    console.log('addMoreNews:');
     this.page = this.page + 1;    
     let startWrapper = moment(this.startDate);
     let endWrapper = moment(this.endDate);
@@ -59,10 +56,7 @@ export class NewsService {
     let apiEndpoint = 
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&sort=newest&fq=pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&page=${this.page}&api-key=${this.apiKey}`;
 
-    console.log('this._news.value', this._news.value)
     return this._http.get<INewYorkTimesFullJSON>(apiEndpoint).pipe(
-      //tap(res => console.log('res docs[]:', res.response.docs)),
-      //tap(res => console.log('_news docs[]:', this._news.value.rawResponse.response.docs)),
       map(res => new News(
         {
           response: {
@@ -74,7 +68,6 @@ export class NewsService {
         }
         )),
       tap(news => this._news.next(news)),
-      tap(res => console.log('after ... => _news docs[]:', this._news.value.rawResponse.response.docs)),
       switchMap(() => this.getNews$())
     )
   }

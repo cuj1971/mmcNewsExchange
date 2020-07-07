@@ -30,13 +30,11 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+<ion-infinite-scroll threshold="200px" (ionInfinite)="updateNews($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+  </ion-infinite-scroll-content>
+</ion-infinite-scroll>
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-        <ion-button (click)="updateNews()">view older articles</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>
 
