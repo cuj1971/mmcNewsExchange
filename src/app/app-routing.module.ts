@@ -5,7 +5,6 @@ import { NewsPageComponent } from './features/news/components/news-page/news-pag
 import { ChartPageComponent } from './features/chart/components/chart-page/chart-page.component';
 import { RegisterComponent } from './features/register/register.component';
 import { LoginComponent } from './features/login/login.component';
-import { HomeComponent } from './features/home/home.component';
 
 const routes: Routes = [
   {
@@ -29,10 +28,6 @@ const routes: Routes = [
         component: SearchPageComponent
       }
     ]
-  },
-  {
-    path: 'home',
-    component: HomeComponent
   },
   {
     path: 'register',

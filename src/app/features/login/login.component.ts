@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
       this.user = await this._afAuth.signInWithEmailAndPassword(email, password);
 
       this.loginForm.reset();
-      this._router.navigate([`/home`]);
+      this._router.navigate([`/search`]);
     } catch (error) {
       this.message = error.message;
       console.log('this.message', this.message);

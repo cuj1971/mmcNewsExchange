@@ -50,7 +50,7 @@ export class SearchPageComponent implements OnInit {
 
   Logout(){
     this._afs.signOut();
-    this._router.navigate([`/home`]);
+    this._router.navigate([`/login`]);
   }
 
 }
