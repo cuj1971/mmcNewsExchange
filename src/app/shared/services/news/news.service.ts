@@ -48,7 +48,7 @@ export class NewsService {
 
   async getCountry(lat, lon){
     console.log(lat, lon);
-    let apiEndPoint = `http://api.geonames.org`;
+    let apiEndPoint = `https://api.geonames.org`;
  
     const countryData = await this._http.get(apiEndPoint + `/countrySubdivisionJSON?lat=${lat}&lng=${lon}&username=norman`).toPromise().catch(err => err);
     return countryData;
