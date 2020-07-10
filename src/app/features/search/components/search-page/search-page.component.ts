@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable} from 'rxjs';
+import { tap, first } from 'rxjs/operators';
 import { News } from '../../../../shared/classes/news';
 import { NewsService } from '../../../../shared/services/news/news.service';
 import { INewYorkTimesResponseMeta, INewYorkTimesResponseDoc } from '../../../../shared/interfaces/newyorktimes';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 
 @Component({
@@ -26,30 +28,56 @@ export class SearchPageComponent implements OnInit {
   public newsDocs$: Observable<INewYorkTimesResponseDoc[]>;
   newsSearchHits = { hits: 0, offset: 0, time: 0 };                                                                       // here
   articles: INewYorkTimesResponseDoc[] = []; 
+  user$: Observable<any>;
+  userBase;
+  userTarget;
 
-  constructor(private _newsService: NewsService, private _router:Router, private _afs: AngularFireAuth) {
-
+  constructor(
+    private _userService:UserService, 
+    private _newsService: NewsService, 
+    private _router:Router, 
+    private _afAuth: AngularFireAuth) {
    }
 
   searchNews() {
-    //await this._newsService.fetchAndGetNews$(this.searchString, this.startDatePicker, this.endDatePicker)
-    //this._newsService.load(this.searchString, this.startDatePicker, this.endDatePicker);
     this._newsService.setNewsQuery(this.searchString, this.startDatePicker, this.endDatePicker);
-    this._router.navigate([`../search/news`]);
+    this._router.navigate([`tabs/search/news`]);
   }
 
   ngOnInit(): void {
-    /*
-    this.searchForm = this._fb.group({
-      primarySearch: ['Trump', Validators.required],
-      startDatePicker: ['01/01/2020', Validators.required],
-      endDatePicker: ['31/12/2020', Validators.required]
-    })
+  
+  }
+
+ async getPrefs() {
+    console.log('getPrefs()')
+    //this.user$ = await this._userService.returnUser$();
+    //console.log('this._userService.userProfile', this._userService.userProfile);
+    //console.log('this._userService.test', this._userService.test)
+
+       
+    this._userService.returnUser$().subscribe(
+      data => {
+        if (!data) {
+          console.log('no data');
+          return;
+        };
+        console.log('data', data);
+      }
+    )
+  
+ 
+/*
+    this.userBase = this.user$.pipe(
+      tap(res => res.baseCurrency)
+    )
+    this.userTarget = this.user$.pipe(
+      tap(res => res.targetCurrency)
+    )
     */
   }
 
-  Logout(){
-    this._afs.signOut();
+  logout(){
+    this._userService.logout();
     this._router.navigate([`/login`]);
   }
 

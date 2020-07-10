@@ -15,5 +15,9 @@ export const environment = {
     storageBucket: "newsarchive-17092.appspot.com",
     messagingSenderId: "277353383647",
     appId: "1:277353383647:web:4fa3eae7e4703d86dbcb6a"
+  },
+  firebaseConfigNomades: {
+    user: 'mcconnachie',
+    project: 'news' 
   }
 };

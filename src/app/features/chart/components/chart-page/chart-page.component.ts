@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ExchangeService } from '../../../../shared/services/exchange/exchange.service';
 import { Exchange } from '../../../../shared/classes/exchange';
 import { Chart, ChartOptions, ChartDataSets } from "chart.js";
 import { ChartService } from 'src/app/shared/services/chart/chart.service';
+import { UserService } from '../../../../shared/services/user/user.service';
 import * as moment from 'moment';
 
 @Component({
@@ -28,7 +30,11 @@ export class ChartPageComponent {
   colorArray: any;
 
 
-  constructor(private _exchangeService: ExchangeService, private _chartService: ChartService) { }
+  constructor(
+    private _userService:UserService,
+    private _router: Router,
+    private _exchangeService: ExchangeService,
+    private _chartService: ChartService) { }
 
   // MAKE USER OF THE EXCHANGE SERVICE TO POPULATE CHART DATA
   generateColorArray(num) {
@@ -138,6 +144,11 @@ export class ChartPageComponent {
         rates: res.getExchangeRates()
       }))
     );
+  }
+
+  logout(){
+    this._userService.logout();
+    this._router.navigate([`/login`]);
   }
 
   // LATER MOVE ALL THIS CHART STUFF TO CHART SERVICE

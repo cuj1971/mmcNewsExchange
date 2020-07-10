@@ -1,0 +1,9 @@
+
+<div *ngIf="(user$ | async) as user;">
+    <p>
+        {{ user | json}}
+    </p>
+</div>
+<div>
+    <button (click)="getAuthUser()">get authuser</button>
+</div>

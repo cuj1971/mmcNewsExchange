@@ -23,6 +23,9 @@ import { ChartPageComponent } from './features/chart/components/chart-page/chart
 import { RegisterComponent } from './features/register/register.component';
 import { LoginComponent } from './features/login/login.component';
 import { HomeComponent } from './features/home/home.component';
+import { UserComponent } from './features/user/user.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { TabsComponent } from './shared/components/tabs/tabs.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { HomeComponent } from './features/home/home.component';
     ChartPageComponent,
     RegisterComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    UserComponent,
+    ProfileComponent,
+    TabsComponent
   ],
   imports: [
     BrowserModule,

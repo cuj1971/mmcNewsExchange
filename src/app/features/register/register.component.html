@@ -1,48 +1,51 @@
-<ion-app>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-title>Create Account</ion-title>
-      </ion-toolbar>
-    </ion-header>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+    </ion-buttons>
+    <ion-title class="ion-text-capitalize">News Exchange Archive</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <ion-content fullscreen>
-      <form [formGroup]="registrationForm" (ngSubmit)="register()">
-        <ion-list lines="full" class="ion-no-margin ion-no-padding">
-          <ion-item>
-            <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="text" formControlName="firstName" ></ion-input>
-          </ion-item>
-          
-          <ion-item>
-            <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="text" formControlName="lastName" ></ion-input>
-          </ion-item>
+<ion-content>
+  <form [formGroup]="registrationForm" (ngSubmit)="regUser()">
+    <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-item>
+        <ion-label>Registration</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="text" formControlName="firstName" ></ion-input>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="text" formControlName="lastName" ></ion-input>
+      </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="text" formControlName="email" placeholder="email" ></ion-input>
-          </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="text" formControlName="email" placeholder="email" ></ion-input>
+      </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">Password <ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="text" formControlName="password" placeholder="password" ></ion-input>
-          </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Password <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="text" formControlName="password" placeholder="password" ></ion-input>
+      </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">Preferred Base Currency </ion-label>
-            <ion-input required type="text" formControlName="baseCurrency"  ></ion-input>
-          </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Preferred Base Currency </ion-label>
+        <ion-input required type="text" formControlName="baseCurrency"  ></ion-input>
+      </ion-item>
 
-          <ion-item>
-            <ion-label position="stacked">Preferred Target Currency </ion-label>
-            <ion-input required type="text" formControlName="targetCurrency"  ></ion-input>
-          </ion-item>
+      <ion-item>
+        <ion-label position="stacked">Preferred Target Currency </ion-label>
+        <ion-input required type="text" formControlName="targetCurrency"  ></ion-input>
+      </ion-item>
 
-        </ion-list>
+    </ion-list>
 
-        <div class="ion-padding">
-          <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!registrationForm.valid">Create account</ion-button>
-        </div>
-      </form>
-    </ion-content>
-  </ion-app>
+    <div class="ion-padding">
+      <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!registrationForm.valid">Create account</ion-button>
+    </div>
+  </form>
+</ion-content>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NewsService } from '../../../../shared/services/news/news.service';
 import { Router } from '@angular/router';
 import { INewYorkTimesResponseDoc } from '../../../../shared/interfaces/newyorktimes';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-news-page',
@@ -13,11 +14,20 @@ export class NewsPageComponent implements OnInit {
   newsSearchHits = { hits: 0, offset: 0, time: 0 };                                                                       // here
   articles: INewYorkTimesResponseDoc[] = []; 
 
-  constructor(private _newsService:NewsService, private _router: Router) { }
+  constructor(
+    private _userService: UserService,
+    private _newsService:NewsService, 
+    private _router: Router) { }
 
-  readNews() {
+  async readNews() {
+
+    const coords = await this._newsService.getCoords();
+    console.log('readNews(): coords', coords)
+    const country = await this._newsService.getCountry(coords.latitude, coords.longitude);
+    console.log('country', country);
+
      this._newsService
-      .fetchAndGetNews$()
+      .fetchAndGetNews$(country)
       .subscribe(data => {
         this.newsSearchHits = data.getResponse().meta;
         this.articles = data.getDocs();
@@ -28,7 +38,7 @@ export class NewsPageComponent implements OnInit {
 
   public setExchangeQuery(val) {
     this._newsService.setExchangeQuery(val)
-    this._router.navigate([`../search/news/chart`]);
+    this._router.navigate([`tabs/search/news/chart`]);
   }
   
   async updateNews(e) {
@@ -45,6 +55,11 @@ export class NewsPageComponent implements OnInit {
     });
 
     e.target.complete();
+  }
+
+  logout(){
+    this._userService.logout();
+    this._router.navigate([`/login`]);
   }
 
   ngOnInit(): void {

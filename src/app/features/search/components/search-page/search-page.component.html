@@ -1,16 +1,24 @@
 <ion-header>
     <ion-toolbar color="primary">
       <ion-buttons slot="start">
-          <ion-button color="warning" (click)="Logout()">Logout</ion-button>
       </ion-buttons>
       <ion-title class="ion-text-capitalize">News Exchange Archive</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="logout()"><ion-icon name="log-out"></ion-icon></ion-button>         
+      </ion-buttons>
     </ion-toolbar>
-  </ion-header>
+</ion-header>
 
 <ion-content>
     <ion-grid>
         <ion-row>
             <ion-col class="ion-text-center ion-align-self-center">
+                <div  *ngIf="(user$ | async) as user;">
+                    <ion-item>
+                        <ion-text>User Base: {{ user }}</ion-text>                 
+                    </ion-item>
+                </div>
+
                 <ion-item>
                     <ion-label></ion-label>
                     <ion-input [(ngModel)]="searchString" value="1990-02-19" type="search" placeholder="type your search terms here ......."></ion-input>

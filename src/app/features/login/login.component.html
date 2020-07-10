@@ -1,12 +1,13 @@
-<ion-app>
-    <ion-header translucent>
-      <ion-toolbar>
-        <ion-title>Login</ion-title>
+    <ion-header>
+      <ion-toolbar color="primary">
+        <ion-title class="ion-text-capitalize">News Exchange Archive</ion-title>
+          <ion-buttons slot="end">
+          </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
     <ion-content fullscreen>
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
         <ion-list lines="full" class="ion-no-margin ion-no-padding">
           
           <ion-item>
@@ -16,7 +17,7 @@
 
           <ion-item>
             <ion-label position="stacked">Password <ion-text color="danger">*</ion-text></ion-label>
-            <ion-input required type="text" formControlName="password" ></ion-input>
+            <ion-input required type="password" formControlName="password" ></ion-input>
           </ion-item>
 
         </ion-list>
@@ -26,4 +27,3 @@
         </div>
       </form>
     </ion-content>
-  </ion-app>

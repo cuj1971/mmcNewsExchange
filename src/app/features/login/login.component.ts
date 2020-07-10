@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { UserService } from 'src/app/shared/user/user.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
@@ -17,10 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder, 
-    private _afAuth: AngularFireAuth, 
-    private _userService: UserService,
-    private _router:Router,
-    private _alertControl: AlertController
+    private _userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -30,29 +27,12 @@ export class LoginComponent implements OnInit {
     });  
   }
 
-  async login() {
-    if (!this.loginForm.valid) {
-      console.log(':(');
-      return;
-    }
-    try {
-      this.message = '';
-      const { email, password} = this.loginForm.value;
-      this.user = await this._afAuth.signInWithEmailAndPassword(email, password);
+  loginUser(){
+    this._userService.login(this.loginForm)
+  }
 
-      this.loginForm.reset();
-      this._router.navigate([`/search`]);
-    } catch (error) {
-      this.message = error.message;
-      console.log('this.message', this.message);
-      this._alertControl.create({
-        header: 'Authentication Error',
-        message: `<b>${error.message}</b>`,
-        buttons: [{
-          text: 'OK'
-        }]
-      }).then(alert => alert.present());
-    }
+  logOutUser(){
+    this._userService.logout();
   }
 
 }
