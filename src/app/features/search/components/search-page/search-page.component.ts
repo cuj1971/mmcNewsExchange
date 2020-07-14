@@ -49,11 +49,6 @@ export class SearchPageComponent implements OnInit {
   }
 
  async getPrefs() {
-    console.log('getPrefs()')
-    //this.user$ = await this._userService.returnUser$();
-    //console.log('this._userService.userProfile', this._userService.userProfile);
-    //console.log('this._userService.test', this._userService.test)
-
        
     this._userService.returnUser$().subscribe(
       data => {
@@ -65,15 +60,6 @@ export class SearchPageComponent implements OnInit {
       }
     )
   
- 
-/*
-    this.userBase = this.user$.pipe(
-      tap(res => res.baseCurrency)
-    )
-    this.userTarget = this.user$.pipe(
-      tap(res => res.targetCurrency)
-    )
-    */
   }
 
   logout(){

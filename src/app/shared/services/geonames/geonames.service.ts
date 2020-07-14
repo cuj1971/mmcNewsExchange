@@ -16,6 +16,5 @@ export class GeonamesService {
   async handleGeoEvents() {
     await this._localisation.getCurrentPosition();
     this.currentCoords = this._localisation.data;
-    console.log('this.currentCoords', this.currentCoords);
   }
 }

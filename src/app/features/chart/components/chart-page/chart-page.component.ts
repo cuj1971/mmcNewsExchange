@@ -38,7 +38,7 @@ export class ChartPageComponent {
 
   createBarChart() {
     this.bars = new Chart(this.barChart.nativeElement, {
-      type: 'bar',
+      type: 'line',
       data: {
         labels: this.chartLabels,
         datasets: [
@@ -46,9 +46,9 @@ export class ChartPageComponent {
           label: 'US Dollar',
           yAxisID: 'left-y-axis',
           data: this.chartData[0].data,
-          backgroundColor: this.colorArray[0],
-          borderColor: this.colorArray[0],
-          borderWidth: 1
+          backgroundColor: this.colorArray[1],
+          borderColor: 'black',
+          borderWidth: 3
         }
       ]
       },

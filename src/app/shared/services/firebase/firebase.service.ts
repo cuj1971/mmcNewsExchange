@@ -89,7 +89,6 @@ export class FirebaseService {
     return this.auth.signInWithPopup(googleProvider)
     .then((result)=> {
       this.currentUser =  result.user
-      console.log('set currentUser-> ', this.currentUser);
       return this.currentUser;
     })
     .catch(err => {

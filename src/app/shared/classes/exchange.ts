@@ -1,4 +1,5 @@
 import { IExchangeJSON } from '../interfaces/exchangeratesapi';
+
 export class Exchange {
     public rawResponse: IExchangeJSON;
     
@@ -11,20 +12,14 @@ export class Exchange {
       }
 
     public getBase(): string {
-        console.log('in getBase:');
-        console.log('base', this.rawResponse.base);
         return this.rawResponse.base;
     }
 
     public getStart(): string {
-        console.log('in getStart:');
-        console.log('start_at', this.rawResponse.start_at);
         return this.rawResponse.start_at;
     }
 
     public getEnd(): string {
-        console.log('in getEnd:');
-        console.log('end_at', this.rawResponse.end_at);
         return this.rawResponse.end_at;
         ;
     }
@@ -32,7 +27,6 @@ export class Exchange {
     public getExchangeRatesOld() {
         const myObj = this.rawResponse.rates;
         for (const prop1 in myObj) {
-           // console.log(`${prop1}`);
             for (const prop2 in myObj[prop1]) {
                 console.log(`${prop1}.${prop2} = ${myObj[prop1][prop2]}`); 
             }
@@ -41,7 +35,6 @@ export class Exchange {
     }
 
     public getExchangeRates() {
-       
         const myObj = this.rawResponse;
         const rateCurrencyDates = Object.keys(myObj.rates);
         const rateCurrencyValues = Object.values(myObj.rates);
@@ -54,15 +47,18 @@ export class Exchange {
         for (let i = 0; i < rateCurrencyDates.length; i += 1) {
             jsonData.push([rateCurrencyDates[i], rateCurrencyValues[i]]);
         }
-/*
-        for (const prop1 in myObj) {
-           // console.log(`${prop1}`);
-            for (const prop2 in myObj[prop1]) {
-                console.log(`${prop1}.${prop2} = ${myObj[prop1][prop2]}`); 
-            }
-        }
-        */
-        console.log('jsonData[]: ', jsonData);
+
+        jsonData.sort(function(a,b){
+            let a1 = a[0];
+            let a2 =  a1.split("-");
+            let a3 = Number(a2[0]+a2[1]+a2[2]);
+
+            let b1 = b[0];
+            let b2 =  b1.split("-");
+            let b3 = Number(b2[0]+b2[1]+b2[2]);
+            return b3 - a3;
+          });
+  
         return jsonData;
     }
 

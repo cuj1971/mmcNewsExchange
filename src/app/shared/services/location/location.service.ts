@@ -17,7 +17,6 @@ export class LocationService {
       longitude = null
     } = coordinates.coords;
     this.data = {latitude, longitude};
-    console.log('this.data', this.data)
   }
 
   watchPosition() {

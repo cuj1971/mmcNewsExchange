@@ -22,9 +22,7 @@ export class NewsPageComponent implements OnInit {
   async readNews() {
 
     const coords = await this._newsService.getCoords();
-    console.log('readNews(): coords', coords)
     await this._newsService.getCountry(coords.latitude, coords.longitude);
-    //console.log('location', location);
 
      this._newsService
       .fetchAndGetNews$()
@@ -42,8 +40,6 @@ export class NewsPageComponent implements OnInit {
   }
   
   async updateNews(e) {
-    // update observable after making new api call
-    //await this._newsService.addMoreNews$()
    
     this._newsService
       .addMoreNews$()

@@ -74,8 +74,6 @@ export class NewsService {
 
     let apiEndpoint = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&fq=glocations:("${this.countryData.data[0].country}")AND pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&sort=newest&api-key=${this.apiKey}`;
 
-    console.log("apiEndpoint", apiEndpoint);
-
     return this._http.get<INewYorkTimesFullJSON>(apiEndpoint).pipe(
       map(res => new News(res)),
       tap(news => this._news.next(news)),
