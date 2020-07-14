@@ -23,11 +23,11 @@ export class NewsPageComponent implements OnInit {
 
     const coords = await this._newsService.getCoords();
     console.log('readNews(): coords', coords)
-    const country = await this._newsService.getCountry(coords.latitude, coords.longitude);
-    console.log('country', country);
+    await this._newsService.getCountry(coords.latitude, coords.longitude);
+    //console.log('location', location);
 
      this._newsService
-      .fetchAndGetNews$(country)
+      .fetchAndGetNews$()
       .subscribe(data => {
         this.newsSearchHits = data.getResponse().meta;
         this.articles = data.getDocs();

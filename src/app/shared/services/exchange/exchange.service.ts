@@ -16,11 +16,13 @@ export class ExchangeService {
   private rates$: Observable<Exchange> = this._rates.asObservable();
 
   private startDate: string;
+  private baseCurr: any;
 
   constructor(private _http:HttpClient) { }
 
-  public setExchangeQuery(val1){
+  public setExchangeQuery(val1, base){
     this.startDate = val1;
+    this.baseCurr = base;
   }
 
   public getRates$(): Observable<Exchange> {
@@ -31,11 +33,11 @@ export class ExchangeService {
     let a = moment(this.startDate);
     let startDate = a.clone().subtract(2, 'week');
     // SET RANGE FROM ONE WEEK BEFORE, UNTIL ONE WEEK AFTER THE SELECTED ARTICLE DATE
-    let startString = `${startDate.year()}-${startDate.month()+1}-${startDate.date()}`;
+    let startString = `${startDate.year()}-${startDate.month()+1}-${startDate.date()}`; // this.currencyCode.currencies[0].code
     let endDate = a.clone().add(2, 'week');
     let endString = `${endDate.year()}-${endDate.month()+1}-${endDate.date()}`;
  
-    let apiEndpoint = `https://api.exchangeratesapi.io/history?start_at=${startString}&end_at=${endString}&base=USD&symbols=GBP,CHF`;
+    let apiEndpoint = `https://api.exchangeratesapi.io/history?start_at=${startString}&end_at=${endString}&base=${this.baseCurr.currencies[0].code}&symbols=USD`;
     
     return this._http.get<IExchangeJSON>(apiEndpoint).pipe(
       map(res => new Exchange(res)),

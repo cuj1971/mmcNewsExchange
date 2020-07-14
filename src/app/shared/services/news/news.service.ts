@@ -7,8 +7,6 @@ import { INewYorkTimesFullJSON } from '../../interfaces/newyorktimes';
 import { News } from '../../classes/news'
 import * as moment from 'moment';
 import { ExchangeService } from '../exchange/exchange.service';
-import { nextTick } from 'process';
-import { LocationService } from '../location/location.service';
 import { GeonamesService } from '../geonames/geonames.service';
 
 @Injectable({
@@ -31,12 +29,11 @@ export class NewsService {
   private endDate: string;
   private page: number;
   private apiKey = environment.newsConfig.apiKey;
-  private coords: any;
-  private countryData: any;
+  public countryData: any;
+  public currency: any;
 
   constructor(
     private _geonames: GeonamesService,
-    private _location: LocationService,
     private _http:HttpClient, 
     private _exchangeService: ExchangeService) { }
   
@@ -47,27 +44,35 @@ export class NewsService {
   }
 
   async getCountry(lat, lon){
-    console.log(lat, lon);
-    let apiEndPoint = `https://api.geonames.org`;
- 
-    const countryData = await this._http.get(apiEndPoint + `/countrySubdivisionJSON?lat=${lat}&lng=${lon}&username=norman`).toPromise().catch(err => err);
-    return countryData;
+    // GETS COUNTRY ISO CODE based on user latitude and longitude
+
+    let apiEndPoint = `http://api.positionstack.com/v1/reverse?access_key=${environment.positionStack.apiKey}`;
+     
+    // auto - giving errors when I test in Chrome with different location ??
+    // If I force latitude and longitude as hown below for Moscow it works as expected
+    this.countryData = await this._http.get(apiEndPoint + `&query=${lat},${lon}`).toPromise().catch(err => err);
+    // Moscow
+    //this.countryData = await this._http.get(apiEndPoint + `&query=55.75,37.61`).toPromise().catch(err => err);
+    await this.getCurrency();
+  }
+
+  async getCurrency(){
+    // GET ISO CURRENCY CODE using ISO Country Code
+    let apiEndPoint = `https://restcountries.eu/rest/v2/alpha/`;
+    this.currency = await this._http.get(apiEndPoint + `${this.countryData.data[0].country_code}`).toPromise().catch(err => err);
   }
 
   public getNews$(): Observable<News> {
     return this.news$
   }
 
-  public fetchAndGetNews$(country) {
+  public fetchAndGetNews$() {
     this.page = 0; 
     //this.page = this.page + 1;     
     let startWrapper = moment(this.startDate);
     let endWrapper = moment(this.endDate);
 
-    //this.getCoords();
-    //const country = this.getCountry(this.coords.lat, this.coords.lon);
-
-    let apiEndpoint = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&fq=glocations:("${country.countryName}")AND pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&sort=newest&api-key=${this.apiKey}`;
+    let apiEndpoint = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&fq=glocations:("${this.countryData.data[0].country}")AND pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&sort=newest&api-key=${this.apiKey}`;
 
     console.log("apiEndpoint", apiEndpoint);
 
@@ -84,8 +89,11 @@ export class NewsService {
     let startWrapper = moment(this.startDate);
     let endWrapper = moment(this.endDate);
 
+   // let apiEndpoint = 
+   // `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&sort=newest&fq=pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&page=${this.page}&api-key=${this.apiKey}`;
+
     let apiEndpoint = 
-    `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&sort=newest&fq=pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&page=${this.page}&api-key=${this.apiKey}`;
+    `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&fq=glocations:("${this.countryData.data[0].country}")AND pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&sort=newest&page=${this.page}&api-key=${this.apiKey}`;
 
     return this._http.get<INewYorkTimesFullJSON>(apiEndpoint).pipe(
       map(res => new News(
@@ -110,7 +118,7 @@ export class NewsService {
   }
 
   public setExchangeQuery(val){
-    this._exchangeService.setExchangeQuery(val)
+    this._exchangeService.setExchangeQuery(val, this.currency)
   }
 
 }

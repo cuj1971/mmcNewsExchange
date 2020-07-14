@@ -11,10 +11,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-list-header color="light">Historical Exchange Rates</ion-list-header>
   <ion-card class="welcome-card">
     <ion-card-header>
-      <ion-card-subtitle>value of 1.00 US Dollar as measured against other currencies:</ion-card-subtitle>
+      <ion-card-subtitle>value of 1.00 {{this.exchangeSummary.base}} as measured against US Dollar:</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
       <canvas #barChart></canvas>

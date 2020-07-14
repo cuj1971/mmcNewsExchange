@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   newsConfig : {
-    apiKey: 'B2O7riG2DAbmoBannY9R03ytV2AiACpP',
+    apiKey: 'B2O7riG2DAbmoBannY9R03ytV2AiACpP'
+  },
+  positionStack : {
+    apiKey: '80160cb2af6f1411bf923773c668e840'
   },
   firebaseConfig : {
     apiKey: "AIzaSyAYVA762HUhravxp9AJdB93ACnEM4ZfMgY",
