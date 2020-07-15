@@ -8,8 +8,11 @@
     </ion-header>
 
     <ion-content fullscreen>
-      <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-        <ion-list lines="full" class="ion-no-margin ion-no-padding">
+      <ion-grid>
+        <ion-row>
+            <ion-col class="ion-text-center ion-align-self-center">
+
+      <form [formGroup]="loginForm" (ngSubmit)="loginUser()">        
           
           <ion-item>
             <ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
@@ -21,11 +24,14 @@
             <ion-input required type="password" formControlName="password" ></ion-input>
           </ion-item>
 
-        </ion-list>
+          <ion-button type="submit" color="dark" fill="outline" size="large" class="ion-padding"  [disabled]="!loginForm.valid">
+            <ion-icon name="log-in-outline"></ion-icon>
+          </ion-button>
 
-        <div class="ion-padding">
-          <ion-button expand="block" type="submit" color="dark" [disabled]="!loginForm.valid">
-            <ion-icon name="log-out-outline"></ion-icon></ion-button>
-        </div>
       </form>
+
+    </ion-col>
+  </ion-row>     
+</ion-grid>
+
     </ion-content>
