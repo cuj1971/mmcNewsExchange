@@ -1,11 +1,12 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar color="dark">
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title class="ion-text-capitalize">News Exchange Archive</ion-title>
     <ion-buttons slot="end">
         <ion-button (click)="logout()"><ion-icon name="log-out"></ion-icon></ion-button>
+        <a href="https://developer.nytimes.com" target="_blank"><img src="../../../../../assets/img/poweredby_nytimes_200c.png" alt=""/></a>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -19,7 +20,7 @@
       </ion-card-subtitle>
     </ion-card-header>
     <ion-card-content>
-      <canvas #barChart></canvas>
+      <canvas height=100 #barChart></canvas>
     </ion-card-content>
   </ion-card>
 </ion-content>

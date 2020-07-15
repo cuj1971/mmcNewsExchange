@@ -1,7 +1,8 @@
     <ion-header>
-      <ion-toolbar color="primary">
+      <ion-toolbar color="dark">
         <ion-title class="ion-text-capitalize">News Exchange Archive</ion-title>
           <ion-buttons slot="end">
+            <a href="https://developer.nytimes.com" target="_blank"><img src="../../../../../assets/img/poweredby_nytimes_200c.png" alt=""/></a>
           </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -23,7 +24,8 @@
         </ion-list>
 
         <div class="ion-padding">
-          <ion-button expand="block" type="submit" class="ion-no-margin" [disabled]="!loginForm.valid">Login</ion-button>
+          <ion-button expand="block" type="submit" color="dark" [disabled]="!loginForm.valid">
+            <ion-icon name="log-out-outline"></ion-icon></ion-button>
         </div>
       </form>
     </ion-content>

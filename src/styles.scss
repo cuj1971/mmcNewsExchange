@@ -2,21 +2,21 @@
 ion-content{
     --background: var(--ion-color-dark);
   }
-  ion-tab-bar, ion-toolbar{
-    --background: var(--ion-color-dark-shade);
-  }
-  ion-item {
-    --background: var(--ion-color-light);
-  }
-  ion-thumbnail {
-    margin: 0;
-    margin-right: 1rem;
-    color: var(--ion-color-light);
-    text-align: center;
-    min-width: 82px;
-    min-height: 82px;
-    padding: 28px 16px;
-  }
-  ion-grid, ion-row {
-    height: 100%;
-  }
+ion-tab-bar, ion-toolbar{
+  --background: var(--ion-color-dark-shade);
+}
+ion-item {
+  --background: var(--ion-color-light);
+}
+ion-thumbnail {
+  margin: 0;
+  margin-right: 1rem;
+  color: var(--ion-color-light);
+  text-align: center;
+  min-width: 82px;
+  min-height: 82px;
+  padding: 28px 16px;
+}
+ion-grid, ion-row {
+  height: 100%;
+}
