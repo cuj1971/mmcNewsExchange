@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable} from 'rxjs';
-import { tap, first } from 'rxjs/operators';
 import { News } from '../../../../shared/classes/news';
 import { NewsService } from '../../../../shared/services/news/news.service';
 import { INewYorkTimesResponseMeta, INewYorkTimesResponseDoc } from '../../../../shared/interfaces/newyorktimes';
