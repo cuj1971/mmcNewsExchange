@@ -21,16 +21,21 @@
                 </ion-item>
         
                 <ion-item>
-                    <ion-datetime [(ngModel)]="startDatePicker" placeholder="Start Date"></ion-datetime>
+                    <ion-datetime [(ngModel)]="startDatePicker" placeholder="Start Date" min="2000-01-01"></ion-datetime>
                 </ion-item>
 
                 <ion-item>
                     <ion-datetime [(ngModel)]="endDatePicker" placeholder="End Date"></ion-datetime>
                 </ion-item>
 
-                <ion-button  color="dark" fill="outline" size="large" class="ion-padding" (click)="searchNews()">
-                    <ion-icon name="search-outline"></ion-icon>
+                <ion-button  color="dark" fill="outline" size="large" class="ion-padding" (click)="searchNews(true)">
+                    <ion-icon name="home-outline"></ion-icon>
                 </ion-button>
+
+                <ion-button  color="dark" fill="outline" size="large" class="ion-padding" (click)="searchNews(false)">
+                    <ion-icon name="earth-outline"></ion-icon>
+                </ion-button>
+
             </ion-col>
         </ion-row>     
     </ion-grid>

@@ -32,7 +32,10 @@ export class News {
               lead_paragraph: res.lead_paragraph,
               headline: {
                 main: res.headline.main
-              }
+              },
+              news_desk: res.news_desk,
+              section_name: res.section_name,
+              subsection_name: res.subsection_name
             }))
            // .slice(0, 10) // number of expected results 
         }

@@ -20,8 +20,14 @@
             <ion-card-title color="dark" class="ion-text-capitalize">
               <div (click)="setExchangeQuery(item.pub_date)">
                 {{item?.pub_date | date:'fullDate':'+0000'}}
+                <div style="text-align: right;">
+                  <ion-icon name="stats-chart-outline"></ion-icon>
+                </div>                
               </div>
             </ion-card-title>
+            <ion-card-subtitle>
+              {{item?.news_desk}} / {{item?.section_name}}
+            </ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             {{item?.lead_paragraph}}

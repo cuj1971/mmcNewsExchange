@@ -6,7 +6,10 @@ export interface INewYorkTimesResponseDoc {
     lead_paragraph: string
     headline: {
       main: string
-    }
+    },
+    news_desk: string
+    section_name: string
+    subsection_name: string
   }
   
   export interface INewYorkTimesResponseMeta {

@@ -39,8 +39,8 @@ export class SearchPageComponent implements OnInit {
     private _afAuth: AngularFireAuth) {
    }
 
-  searchNews() {
-    this._newsService.setNewsQuery(this.searchString, this.startDatePicker, this.endDatePicker);
+  searchNews(local) {
+    this._newsService.setNewsQuery(local, this.searchString, this.startDatePicker, this.endDatePicker);
     this._router.navigate([`tabs/search/news`]);
   }
 

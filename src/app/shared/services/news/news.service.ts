@@ -27,6 +27,7 @@ export class NewsService {
   private searchTerm: string;
   private startDate: string;
   private endDate: string;
+  private local: boolean;
   private page: number;
   private apiKey = environment.newsConfig.apiKey;
   public countryData: any;
@@ -67,12 +68,17 @@ export class NewsService {
   }
 
   public fetchAndGetNews$() {
+    let apiEndpoint;
     this.page = 0; 
     //this.page = this.page + 1;     
     let startWrapper = moment(this.startDate);
     let endWrapper = moment(this.endDate);
 
-    let apiEndpoint = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&fq=glocations:("${this.countryData.data[0].country}")AND pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&sort=newest&api-key=${this.apiKey}`;
+    if (this.local) {
+      apiEndpoint = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&fq=glocations:("${this.countryData.data[0].country}")AND pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&sort=newest&api-key=${this.apiKey}`;
+    }else{
+      apiEndpoint = `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&fq=pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&sort=newest&api-key=${this.apiKey}`;
+    }
 
     return this._http.get<INewYorkTimesFullJSON>(apiEndpoint).pipe(
       map(res => new News(res)),
@@ -81,8 +87,8 @@ export class NewsService {
     )
   }
 
-
   public addMoreNews$() {
+    let apiEndpoint;
     this.page = this.page + 1;    
     let startWrapper = moment(this.startDate);
     let endWrapper = moment(this.endDate);
@@ -90,8 +96,13 @@ export class NewsService {
    // let apiEndpoint = 
    // `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&sort=newest&fq=pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&page=${this.page}&api-key=${this.apiKey}`;
 
-    let apiEndpoint = 
+    if (this.local){
+      apiEndpoint = 
     `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&fq=glocations:("${this.countryData.data[0].country}")AND pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&sort=newest&page=${this.page}&api-key=${this.apiKey}`;
+    }else{
+      apiEndpoint = 
+    `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${this.searchTerm}&fq=pub_date:[${startWrapper.format("YYYY-MM-DD")} TO ${endWrapper.format("YYYY-MM-DD")}]&sort=newest&page=${this.page}&api-key=${this.apiKey}`;
+    }
 
     return this._http.get<INewYorkTimesFullJSON>(apiEndpoint).pipe(
       map(res => new News(
@@ -109,10 +120,11 @@ export class NewsService {
     )
   }
 
-  public setNewsQuery(val1, val2, val3) {
+  public setNewsQuery(local, val1, val2, val3) {
     this.searchTerm = val1;
     this.startDate = val2;
     this.endDate = val3;
+    this.local = local;
   }
 
   public setExchangeQuery(val){

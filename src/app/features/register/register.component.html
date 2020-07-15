@@ -10,36 +10,38 @@
   <form [formGroup]="registrationForm" (ngSubmit)="regUser()">
     <ion-list lines="full" class="ion-no-margin ion-no-padding">
       <ion-item>
-        <ion-label>Registration</ion-label>
-      </ion-item>
-      <ion-item>
-        <ion-label position="stacked">First Name <ion-text color="danger">*</ion-text></ion-label>
+        <ion-label>First Name <ion-text color="danger">*</ion-text></ion-label>
         <ion-input required type="text" formControlName="firstName" ></ion-input>
       </ion-item>
       
       <ion-item>
-        <ion-label position="stacked">Last Name <ion-text color="danger">*</ion-text></ion-label>
+        <ion-label>Last Name <ion-text color="danger">*</ion-text></ion-label>
         <ion-input required type="text" formControlName="lastName" ></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required type="text" formControlName="email" placeholder="email" ></ion-input>
+        <ion-label>Email <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="text" formControlName="email" ></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Password <ion-text color="danger">*</ion-text></ion-label>
-        <ion-input required type="text" formControlName="password" placeholder="password" ></ion-input>
+        <ion-label>Password <ion-text color="danger">*</ion-text></ion-label>
+        <ion-input required type="text" formControlName="password" ></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Preferred Base Currency </ion-label>
+        <ion-label>Preferred Base Currency </ion-label>
         <ion-input required type="text" formControlName="baseCurrency"  ></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label position="stacked">Preferred Target Currency </ion-label>
-        <ion-input required type="text" formControlName="targetCurrency"  ></ion-input>
+        <ion-label>Preferred Target Currency </ion-label>
+        <ion-select formControlName="targetCurrency" required interface="popover">
+          <ion-select-option value="USD">USD</ion-select-option>
+          <ion-select-option value="GBP">GBP</ion-select-option>
+          <ion-select-option value="EUR">EUR</ion-select-option>
+          <ion-select-option value="AED">AED</ion-select-option>
+        </ion-select>
       </ion-item>
 
     </ion-list>

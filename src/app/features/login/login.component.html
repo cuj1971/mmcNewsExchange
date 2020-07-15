@@ -15,12 +15,12 @@
       <form [formGroup]="loginForm" (ngSubmit)="loginUser()">        
           
           <ion-item>
-            <ion-label position="stacked">Email <ion-text color="danger">*</ion-text></ion-label>
+            <ion-label>Email <ion-text color="danger">*</ion-text></ion-label>
             <ion-input required type="text" formControlName="email" ></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label position="stacked">Password <ion-text color="danger">*</ion-text></ion-label>
+            <ion-label>Password <ion-text color="danger">*</ion-text></ion-label>
             <ion-input required type="password" formControlName="password" ></ion-input>
           </ion-item>
 
