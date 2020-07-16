@@ -26,6 +26,7 @@ import { HomeComponent } from './features/home/home.component';
 import { UserComponent } from './features/user/user.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { TabsComponent } from './shared/components/tabs/tabs.component';
+import { ModalComponent } from './features/profile/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { TabsComponent } from './shared/components/tabs/tabs.component';
     HomeComponent,
     UserComponent,
     ProfileComponent,
-    TabsComponent
+    TabsComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

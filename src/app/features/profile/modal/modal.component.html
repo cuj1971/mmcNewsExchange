@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar color="dark">
+      <ion-title class="ion-text-capitalize">Modify Target Currency</ion-title>
+      <ion-buttons slot="end">
+          <ion-button (click)="updateUser()">OK</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <form [formGroup]="currencyForm" (ngSubmit)="updateUser()">
+      <ion-list lines="full" class="ion-no-margin ion-no-padding">
+        
+        <ion-item>
+          <ion-label>Preferred Target Currency </ion-label>
+          <ion-select formControlName="targetCurrency" required interface="popover">
+            <ion-select-option value="AUD">AUD: Australian Dollar</ion-select-option>
+            <ion-select-option value="CAD">CAD: Canadian Dollar</ion-select-option>
+            <ion-select-option value="EUR">EUR: Euro</ion-select-option>
+            <ion-select-option value="GBP">GBP: British Sterling</ion-select-option>    
+            <ion-select-option value="INR">INR: Indian Rupee</ion-select-option>   
+            <ion-select-option value="RUB">RBN: Russian Rouble</ion-select-option>
+            <ion-select-option value="SEK">SEK: Swedish Krone</ion-select-option>         
+            <ion-select-option value="USD">USD: US Dollar</ion-select-option>         
+          </ion-select>
+        </ion-item>
+  
+      </ion-list>
+  
+      <div class="ion-padding">
+        <ion-button color="dark" expand="block" type="submit" class="ion-no-margin" >Update</ion-button>
+      </div>
+    </form>
+  </ion-content>
+  

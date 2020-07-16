@@ -162,4 +162,27 @@ export class UserService {
     )
   }
 
+  public async update(form){
+    console.log('update user');
+    console.log('uid', this.result.user.uid);
+    let id;
+/*
+    this._afs.collection<IUser>('user', ref => ref.where('uid', '==', this.result.user.uid)).
+    snapshotChanges().
+    pipe(
+      map(actions => actions.map(a => {
+        //id = a.payload.doc.ref
+      }))
+    )
+    console.log('id', id);
+ */
+
+ /*
+    const upd = this._afs.doc('user/BzF7T5BS9vNYyrkhfU4m').update({
+      targetCurrency: form.value.targetCurrency
+    })
+
+    this.user$.subscribe();
+*/
+  }
 }
