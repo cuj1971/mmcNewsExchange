@@ -128,7 +128,7 @@ export class NewsService {
   }
 
   public setExchangeQuery(val){
-    this._exchangeService.setExchangeQuery(val, this.currency)
+    this._exchangeService.setExchangeQuery(val, this.currency, this.local)
   }
 
 }

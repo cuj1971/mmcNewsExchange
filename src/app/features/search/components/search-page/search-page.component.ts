@@ -31,6 +31,7 @@ export class SearchPageComponent implements OnInit {
   user$: Observable<any>;
   userBase;
   userTarget;
+  authenticated = false;
 
   constructor(
     private _userService:UserService, 
@@ -48,9 +49,18 @@ export class SearchPageComponent implements OnInit {
     
   }
 
-  logout(){
-    this._userService.logout();
-    this._router.navigate([`/login`]);
+  async ionViewWillEnter() {
+    this.isAuthenticated();
+  }
+
+  isAuthenticated(){
+    if(this._userService.result == null){
+      console.log("not authenticated")
+     } else {
+      console.log("authenticated")
+      console.log("authenticated", this._userService.result.user.uid)
+      this.authenticated = true;
+    }
   }
 
 }

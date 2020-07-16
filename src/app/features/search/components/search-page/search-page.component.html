@@ -4,7 +4,6 @@
       </ion-buttons>
       <ion-title class="ion-text-capitalize">News Exchange Archive</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="logout()"><ion-icon name="log-out"></ion-icon></ion-button>    
          <a href="https://developer.nytimes.com" target="_blank"><img src="../../../assets/img/poweredby_nytimes_200c.png" alt=""/></a>   
       </ion-buttons>
     </ion-toolbar>
@@ -14,10 +13,6 @@
     <ion-grid>
         <ion-row>
             <ion-col class="ion-text-center ion-align-self-center">
-
-                <div *ngIf="(user$ |async)">
-                    {{ user$ | async | json}}
-                </div>
 
                 <ion-item>
                     <ion-label></ion-label>
@@ -32,11 +27,11 @@
                     <ion-datetime [(ngModel)]="endDatePicker" placeholder="End Date"></ion-datetime>
                 </ion-item>
 
-                <ion-button  color="dark" fill="outline" size="large" class="ion-padding" (click)="searchNews(true)">
+                <ion-button  color="dark" fill="outline" size="large" class="ion-padding" [disabled]="authenticated" (click)="searchNews(true)">
                     <ion-icon name="home-outline"></ion-icon>
                 </ion-button>
 
-                <ion-button  color="dark" fill="outline" size="large" class="ion-padding" (click)="searchNews(false)">
+                <ion-button  color="dark" fill="outline" size="large" class="ion-padding" [disabled]="!authenticated" (click)="searchNews(false)">
                     <ion-icon name="earth-outline"></ion-icon>
                 </ion-button>
 

@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { first, tap, map, switchMap } from 'rxjs/operators'
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { IUser } from '../../interfaces/user'
+import { IUser } from '../../interfaces/user';
 
 @Injectable({
   providedIn: 'root'
@@ -56,10 +56,7 @@ export class UserService {
     
     if( this.result && this.result.user) {
       
-      this.user = this.result.user;
-      console.log('this.user.uid', this.user.uid);
-
-      const userCreated = await this.createUser(this.user, userPrefs);
+      const userCreated = await this.createUser(this.result.user, userPrefs);
 
       this._alertController.create({
         header: 'Account Created',
@@ -70,12 +67,16 @@ export class UserService {
       }).then(alert => alert.present());
 
       regForm.reset();
-      this.logout();
+      //this.logout();
+      this._router.navigate([`tabs/search`]);
     }
   }
 
   async logout() {
+    let EMPTY = new Object();
+
     await this._afAuth.signOut();
+    //this._user.next(EMPTY);
     this.result = null;
     this.user = null;
     this._router.navigate([`tabs/login`]);
@@ -112,6 +113,9 @@ export class UserService {
 
   createUser(user, prefs) {
     console.log('prefs', prefs);
+    console.log('user.uid', user.uid);
+    console.log('user.email', user.email);
+
     const  newUser = {
       uid: user.uid,
       firstName: prefs.firstName,
@@ -141,12 +145,12 @@ export class UserService {
       */
   }
 
-  public getUser() {
+  public async getUser() {
     let baseCurrency: string;
     let targetCurrency: string;
     console.log('this.user.uid', this.user.uid)
     
-    return this._afs.collection<IUser>('user', ref => ref.where('uid', '==', this.user.uid)).valueChanges().pipe(
+    return await this._afs.collection<IUser>('user', ref => ref.where('uid', '==', this.user.uid)).valueChanges().pipe(
       tap(res => console.log('res', res)),
       tap(res => this._user.next(res)),
       tap(res => this.userData = {

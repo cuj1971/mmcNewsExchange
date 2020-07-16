@@ -24,10 +24,17 @@ export class ExchangeService {
     private _http:HttpClient,
     private _userService:UserService) { }
 
-  public setExchangeQuery(val1, base){
+  public setExchangeQuery(val1, base, local){
     this.startDate = val1;
-    this.baseCurr = base;
-    this.targetCurr = this._userService.userData.targetCurrency;
+    //this.baseCurr = base;
+    if (local){
+      this.baseCurr = base.currencies[0].code;
+      this.targetCurr = "USD"
+    } else{
+      this.baseCurr = this._userService.userData.baseCurrency;
+      this.targetCurr = this._userService.userData.targetCurrency;
+    }
+    
     console.log('this._userService.userData', this._userService.userData);
   }
 
@@ -44,7 +51,7 @@ export class ExchangeService {
     let endString = `${endDate.year()}-${endDate.month()+1}-${endDate.date()}`;
  
     //let apiEndpoint = `https://api.exchangeratesapi.io/history?start_at=${startString}&end_at=${endString}&base=${this.baseCurr.currencies[0].code}&symbols=USD`;
-    let apiEndpoint = `https://api.exchangeratesapi.io/history?start_at=${startString}&end_at=${endString}&base=${this.baseCurr.currencies[0].code}&symbols=${this.targetCurr}`;
+    let apiEndpoint = `https://api.exchangeratesapi.io/history?start_at=${startString}&end_at=${endString}&base=${this.baseCurr}&symbols=${this.targetCurr}`;
     
     return this._http.get<IExchangeJSON>(apiEndpoint).pipe(
       map(res => new Exchange(res)),
