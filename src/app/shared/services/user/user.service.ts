@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { first, tap, map, switchMap } from 'rxjs/operators'
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { IUser } from '../../interfaces/user'
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class UserService {
   test;
   private userAFColl: AngularFirestoreCollection<any>;
   private userAFDoc: AngularFirestoreDocument<any>;
-  //public user$: Observable<any>;
   public userProfile;
+  public userData: IUser;
 
   // The BehaviorSubject will store the New York Times Search instance into memory and allows us to emit new values
   private _user: BehaviorSubject<any> = new BehaviorSubject<any>(null);
@@ -44,18 +45,21 @@ export class UserService {
       return;
     } 
     this.result = await this._afAuth.createUserWithEmailAndPassword(regForm.value.email, regForm.value.password);
+    this.user = this.result;
     
     const userPrefs = {
+      firstName: regForm.value.firstName,
+      lastName: regForm.value.lastName,
       base: regForm.value.baseCurrency,
       target: regForm.value.targetCurrency
     }
     
     if( this.result && this.result.user) {
       
-      this.user = this.result.user.uid;
-      console.log('this.result.user.uid', this.result.user.uid);
+      this.user = this.result.user;
+      console.log('this.user.uid', this.user.uid);
 
-      const userCreated = await this.createUser(this.result.user, userPrefs);
+      const userCreated = await this.createUser(this.user, userPrefs);
 
       this._alertController.create({
         header: 'Account Created',
@@ -65,15 +69,16 @@ export class UserService {
         }]
       }).then(alert => alert.present());
 
-      this.result = null
       regForm.reset();
-      this._router.navigate([`/search`]);
+      this.logout();
     }
   }
 
   async logout() {
     await this._afAuth.signOut();
-    //this._router.navigate([`/login`]);
+    this.result = null;
+    this.user = null;
+    this._router.navigate([`tabs/login`]);
   }
 
   async login(logForm) {
@@ -85,25 +90,12 @@ export class UserService {
     try {
       this.message = '';
       const { email, password} = logForm.value;
-      this.user = await this._afAuth.signInWithEmailAndPassword(email, password);
-  
-      //this.getUser();
-      //this.userAFDoc = this._afs.doc<any>("user/Ze8XDp6oBLlL6uyHlld6");
-      
-      //this.userAFDoc = this._afs.doc<any>(`baseCurrency/${(await this._afAuth.currentUser).uid}`);
-
-      /*
-      this._afs.collection('baseCurrency', ref => ref.where('uid', '==', 'lYPn25OY41ajb3F0vcX9USyhb6O2')).valueChanges().pipe(
-        tap(res => console.log('res', res)),
-        tap(res => this._user.next(res))
-      );
-      */
-      
-      //this.userProfile = this.userAFColl.doc()
+      this.result = await this._afAuth.signInWithEmailAndPassword(email, password);
+      this.user = this.result.user;
 
       this.test = `hello`;
       logForm.reset();
-      this._router.navigate([`tabs/search`]);
+      this._router.navigate([`tabs/login/profile`]);
     } catch (error) {
       this.message = error.message;
       console.log('this.message', this.message);
@@ -115,12 +107,15 @@ export class UserService {
         }]
       }).then(alert => alert.present());
     }
+
   }
 
   createUser(user, prefs) {
     console.log('prefs', prefs);
     const  newUser = {
       uid: user.uid,
+      firstName: prefs.firstName,
+      lastName: prefs.lastName,
       email: user.email,
       emailVerified: user.emailVerified,
       createdAt: new Date(),
@@ -131,6 +126,7 @@ export class UserService {
     const usersCollection = this._afs.collection(`${this.collectionName}`);
     usersCollection.add(newUser);
 
+    /*
     const baseCollection = this._afs.collection('baseCurrency');
     baseCollection.add(
       {
@@ -142,43 +138,24 @@ export class UserService {
       {
         [newUser.uid] : newUser.targetCurrency
       })
-
+      */
   }
 
   public getUser() {
-    //const id = this.user.uid;
-    //const id = (await this._afAuth.currentUser).uid;
-    //console.log('id', id);
-/*
-    return this._afs.doc(`${this.collectionName}/${id}`).valueChanges().pipe(
+    let baseCurrency: string;
+    let targetCurrency: string;
+    console.log('this.user.uid', this.user.uid)
+    
+    return this._afs.collection<IUser>('user', ref => ref.where('uid', '==', this.user.uid)).valueChanges().pipe(
       tap(res => console.log('res', res)),
-      tap(res => this._user.next(res))
-    );
-*/
-/*
-    return this._afs.collection('user', ref => ref.where('uid', '==', 'K0gHPjVMJyWtgfoA6eLChVlCuqZ2')).valueChanges().pipe(
-      tap(res => console.log('res', res)),
-      tap(res => this._user.next(res)) 
-    )
-*/
-
-    return this._afs.collection('user', ref => ref.where('email', '==', 'bob@dylan.com')).valueChanges().pipe(
-      tap(docs => console.log('docs', docs)),
-      map(val => val.length > 0 ? val[0] : null),
       tap(res => this._user.next(res)),
+      tap(res => this.userData = {
+        baseCurrency : res[0].baseCurrency,
+        targetCurrency : res[0].targetCurrency
+        }),
+      tap(res => console.log('this.userData', this.userData)),
       switchMap(() => this.returnUser$())
     )
-
-/*
-    const r = await this._afs.doc(`user/Ze8XDp6oBLlL6uyHlld6`).get().pipe(
-      //tap(res => console.log('res', res)),
-      //tap(res => this._user.next(res))
-    ).toPromise();
-    this._user.next(r)
-    console.log('user:', this._user.value);
-    
-    return r;
-*/
   }
 
 }

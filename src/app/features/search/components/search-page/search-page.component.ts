@@ -27,6 +27,7 @@ export class SearchPageComponent implements OnInit {
   public newsDocs$: Observable<INewYorkTimesResponseDoc[]>;
   newsSearchHits = { hits: 0, offset: 0, time: 0 };                                                                       // here
   articles: INewYorkTimesResponseDoc[] = []; 
+  uid;
   user$: Observable<any>;
   userBase;
   userTarget;
@@ -44,21 +45,7 @@ export class SearchPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
-  }
-
- async getPrefs() {
-       
-    this._userService.returnUser$().subscribe(
-      data => {
-        if (!data) {
-          console.log('no data');
-          return;
-        };
-        console.log('data', data);
-      }
-    )
-  
+    
   }
 
   logout(){

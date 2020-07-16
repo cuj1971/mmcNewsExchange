@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../shared/services/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private _fb: FormBuilder, 
+    private _router:Router,
     private _userService: UserService) { }
 
   ngOnInit(): void {
@@ -28,8 +30,8 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  regUser(){
-    this._userService.register(this.registrationForm)
+  async regUser(){
+    const user = await this._userService.register(this.registrationForm)
   }
   
 

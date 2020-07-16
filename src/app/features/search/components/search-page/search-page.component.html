@@ -15,6 +15,10 @@
         <ion-row>
             <ion-col class="ion-text-center ion-align-self-center">
 
+                <div *ngIf="(user$ |async)">
+                    {{ user$ | async | json}}
+                </div>
+
                 <ion-item>
                     <ion-label></ion-label>
                     <ion-input [(ngModel)]="searchString" value="1990-02-19" type="search" placeholder="type your search terms here ......."></ion-input>

@@ -14,7 +14,7 @@ export class ChartPageComponent {
 
   //public myrates$: Observable<Exchange>;
   public mybase$: Observable<any>
-  public exchangeSummary = { rates: [], start_at: '', base: '', end_at: '' }; 
+  public exchangeSummary = { rates: [], base: '', target: '', start_at: '', end_at: '' }; 
 
   chartData: ChartDataSets[] = [];
   chartLabels: any[] = [];
@@ -43,7 +43,7 @@ export class ChartPageComponent {
         labels: this.chartLabels,
         datasets: [
           {
-          label: 'US Dollar',
+          label: this.exchangeSummary.target,
           yAxisID: 'left-y-axis',
           data: this.chartData[0].data,
           backgroundColor: this.colorArray[1],
@@ -87,15 +87,17 @@ export class ChartPageComponent {
       this.exchangeSummary.start_at = data.getStart();
       this.exchangeSummary.end_at = data.getEnd();
       this.exchangeSummary.base = data.getBase();
+      this.exchangeSummary.target = this._exchangeService.targetCurr;
       this.exchangeSummary.rates = data.getExchangeRates();
 
       for (let i = 0; i < this.exchangeSummary.rates.length; i++) {
         this.chartLabels.push(this.exchangeSummary.rates[i][0]);
-        dataset1.push(this.exchangeSummary.rates[i][1].USD);
+        //dataset1.push(this.exchangeSummary.rates[i][1].USD);
+        dataset1.push(this.exchangeSummary.rates[i][1][this.exchangeSummary.target]);
       }
       
       series1.data = dataset1;
-      series1.label = "USD";
+      series1.label = this.exchangeSummary.target;
       
       this.chartData.push(series1);
      // create the chart now we have the data
