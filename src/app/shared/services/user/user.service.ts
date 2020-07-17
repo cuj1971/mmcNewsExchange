@@ -67,7 +67,7 @@ export class UserService {
       }).then(alert => alert.present());
 
       regForm.reset();
-      //this.logout();
+      this.logout();
       this._router.navigate([`tabs/search`]);
     }
   }
@@ -111,7 +111,7 @@ export class UserService {
 
   }
 
-  createUser(user, prefs) {
+  async createUser(user, prefs) {
     console.log('prefs', prefs);
     console.log('user.uid', user.uid);
     console.log('user.email', user.email);
@@ -128,7 +128,7 @@ export class UserService {
     }
 
     const usersCollection = this._afs.collection(`${this.collectionName}`);
-    usersCollection.add(newUser);
+    await usersCollection.add(newUser);
 
     /*
     const baseCollection = this._afs.collection('baseCurrency');
