@@ -23,21 +23,22 @@
     "@angular/platform-browser-dynamic": "~9.1.7",
     "@angular/router": "~9.1.7",
     "@capacitor/angular": "^1.0.2",
+    "@capacitor/core": "latest",
     "@ionic/angular": "^5.2.2",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chartjs-plugin-datalabels": "^0.7.0",
     "firebase": "^7.15.5",
     "moment": "^2.27.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "@capacitor/core": "latest"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/architect": ">= 0.900 < 0.1100",
+    "@angular-devkit/architect": "^0.1302.5",
     "@angular-devkit/build-angular": "~0.901.6",
     "@angular/cli": "~9.1.6",
     "@angular/compiler-cli": "~9.1.7",
+    "@capacitor/cli": "latest",
     "@ionic/angular-toolkit": "latest",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
@@ -59,7 +60,6 @@
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3",
-    "@capacitor/cli": "latest"
+    "typescript": "~3.8.3"
   }
 }

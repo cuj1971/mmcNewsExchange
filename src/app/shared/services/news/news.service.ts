@@ -47,7 +47,8 @@ export class NewsService {
   async getCountry(lat, lon){
     // GETS COUNTRY ISO CODE based on user latitude and longitude
 
-    let apiEndPoint = `https://api.positionstack.com/v1/reverse?access_key=${environment.positionStack.apiKey}`;
+    // let apiEndPoint = `https://api.positionstack.com/v1/reverse?access_key=${environment.positionStack.apiKey}`;
+    let apiEndPoint = `http://api.positionstack.com/v1/reverse?access_key=${environment.positionStack.apiKey}`;
      
     // auto - giving errors when I test in Chrome with different location ??
     // If I force latitude and longitude as hown below for Moscow it works as expected
