@@ -36,7 +36,7 @@
   "devDependencies": {
     "@angular-devkit/architect": "^0.1302.5",
     "@angular-devkit/build-angular": "~0.901.6",
-    "@angular/cli": "~9.1.6",
+    "@angular/cli": "~15.1.4",
     "@angular/compiler-cli": "~9.1.7",
     "@capacitor/cli": "latest",
     "@ionic/angular-toolkit": "latest",
